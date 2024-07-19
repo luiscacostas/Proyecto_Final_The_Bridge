@@ -3,7 +3,7 @@ const router = express.Router();
 const { getAllTokens, getTokenById, createToken, updateTokenById, deleteTokenById, captureToken } = require('../controllers/tokens.controllers');
 const { verifyToken, isAdmin } = require('../config/jwt');
 
-router.get('/', verifyToken, isAdmin, getAllTokens);
+router.get('/', getAllTokens);
 router.get('/:id', verifyToken, isAdmin, getTokenById);
 router.post('/', verifyToken, isAdmin, createToken);
 router.put('/:id', verifyToken, isAdmin, updateTokenById);

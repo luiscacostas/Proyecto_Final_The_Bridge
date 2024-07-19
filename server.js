@@ -7,7 +7,6 @@ const connectDB = require('./config/db_mongo');
 const userRoutes = require('./routes/users.routes');
 const tokenRoutes = require('./routes/tokens.routes');
 const authRoutes = require('./routes/auth.routes');
-const { verifyToken, isAdmin } = require('./config/jwt');
 
 const app = express();
 const server = http.createServer(app);
@@ -28,8 +27,8 @@ const error404 = require('./middlewares/error404');
 const morgan = require('./middlewares/morgan');
 
 app.use('/api/auth', authRoutes);
-app.use('/api/users', verifyToken, userRoutes);
-app.use('/api/tokens', verifyToken, tokenRoutes)
+app.use('/api/users', userRoutes);
+app.use('/api/tokens', tokenRoutes)
 
 app.use(morgan(':method :host :status - :response-time ms :body'));
 
