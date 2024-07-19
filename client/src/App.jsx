@@ -1,31 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import MapView from './components/MapView';
-import { getTokens } from './services/api';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import Register from './components/Register';
+import Login from './components/Login';
+import Home from './components/Home';
+import Nav from './components/Nav';
+import AdminDashboard from './components/AdminDashboard';
 import './App.css';
 
 const App = () => {
-  const [tokens, setTokens] = useState([]);
+  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    const fetchTokens = async () => {
-      try {
-        const data = await getTokens();
-        setTokens(data);
-      } catch (error) {
-        console.error('Error fetching tokens:', error);
-      }
-    };
-
-    fetchTokens();
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsAuthenticated(true);
+      const user = JSON.parse(atob(token.split('.')[1])); 
+      setIsAdmin(user.role === 'admin');
+    }
   }, []);
 
   return (
-    <div className="container">
-      <header>
-        <h1>Token Map Application</h1>
-      </header>
-      <MapView tokens={tokens} />
-    </div>
+    <Router>
+      <Nav isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
+      <Routes>
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+        <Route path="/home" element={isAuthenticated ? <Home /> : <Navigate to="/login" />} />
+         <Route path="/admin" element={isAuthenticated && isAdmin ? <AdminDashboard /> : <Navigate to="/login" />} />
+        <Route path="/" element={<Navigate to="/home" />} />
+      </Routes>
+    </Router>
   );
 };
 

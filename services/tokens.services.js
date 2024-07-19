@@ -1,4 +1,6 @@
 const Token = require('../models/tokens.models');
+const User = require('../models/users.models')
+const geolib = require('geolib');
 
 const createToken = async (tokenData) => {
   try {
@@ -42,10 +44,40 @@ const deleteTokenById = async (tokenId) => {
   }
 };
 
+const captureToken = async (userId, tokenId, latitude, longitude) => {
+  const token = await Token.findById(tokenId);
+
+  if (!token) {
+    throw new Error('Token not found');
+  }
+
+  const distance = geolib.getDistance(
+    { latitude: token.latitude, longitude: token.longitude },
+    { latitude, longitude }
+  );
+
+  if (distance > 100) { // Suponiendo 100 metros como distancia máxima para capturar un token
+    throw new Error('Too far from the token');
+  }
+
+  const user = await User.findById(userId);
+
+  if (user.tokens.includes(tokenId)) {
+    throw new Error('Token already captured');
+  }
+
+  user.tokens.push(tokenId);
+  await user.save();
+
+  return token;
+};
+
+
 module.exports = {
   createToken,
   getAllTokens,
   getTokenById,
   updateTokenById,
-  deleteTokenById
+  deleteTokenById,
+  captureToken
 };

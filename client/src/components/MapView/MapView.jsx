@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import { captureToken } from '../../services/api';
 
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
@@ -15,10 +16,20 @@ L.Icon.Default.mergeOptions({
   shadowUrl: markerShadow,
 });
 
-const MapView = ({ tokens }) => {
+const MapView = ({ tokens, userPath, onTokenCaptured }) => {
   useEffect(() => {
     console.log('Tokens in MapView:', tokens);
-  }, [tokens]);
+    console.log('User Path:', userPath);
+  }, [tokens, userPath]);
+
+  const handleCaptureToken = async (tokenId, latitude, longitude) => {
+    try {
+      await captureToken(tokenId, latitude, longitude);
+      onTokenCaptured(tokenId);
+    } catch (error) {
+      console.error('Error capturing token:', error);
+    }
+  };
 
   return (
     <div style={{ height: '100vh', width: '100%' }}>
@@ -31,9 +42,20 @@ const MapView = ({ tokens }) => {
           <Marker key={token._id} position={[token.latitude, token.longitude]}>
             <Popup>
               {token.name}<br />{token.description}
+              <button onClick={() => handleCaptureToken(token._id, userPath[userPath.length - 1][0], userPath[userPath.length - 1][1])}>
+                Capture Token
+              </button>
             </Popup>
           </Marker>
         ))}
+        {userPath.length > 0 && (
+          <>
+            <Polyline positions={userPath} color="blue" />
+            <Marker position={userPath[userPath.length - 1]}>
+              <Popup>Your current location</Popup>
+            </Marker>
+          </>
+        )}
       </MapContainer>
     </div>
   );

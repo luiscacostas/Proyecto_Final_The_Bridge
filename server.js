@@ -6,6 +6,8 @@ const { Server } = require('socket.io');
 const connectDB = require('./config/db_mongo');
 const userRoutes = require('./routes/users.routes');
 const tokenRoutes = require('./routes/tokens.routes');
+const authRoutes = require('./routes/auth.routes');
+const { verifyToken, isAdmin } = require('./config/jwt');
 
 const app = express();
 const server = http.createServer(app);
@@ -22,8 +24,14 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/users', userRoutes);
-app.use('/api/tokens', tokenRoutes);
+const error404 = require('./middlewares/error404');
+const morgan = require('./middlewares/morgan');
+
+app.use('/api/auth', authRoutes);
+app.use('/api/users', verifyToken, userRoutes);
+app.use('/api/tokens', verifyToken, tokenRoutes)
+
+app.use(morgan(':method :host :status - :response-time ms :body'));
 
 io.on('connection', (socket) => {
   console.log('A user connected:', socket.id);
@@ -36,6 +44,9 @@ io.on('connection', (socket) => {
     console.log('A user disconnected:', socket.id);
   });
 });
+
+
+app.use('*',error404);
 
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const tokenController = require('../controllers/tokens.controllers');
+const { getAllTokens, getTokenById, createToken, updateTokenById, deleteTokenById, captureToken } = require('../controllers/tokens.controllers');
+const { verifyToken, isAdmin } = require('../config/jwt');
 
-router.post('/', tokenController.createToken);
-router.get('/', tokenController.getAllTokens);
-router.get('/:id', tokenController.getTokenById);
-router.put('/:id', tokenController.updateTokenById);
-router.delete('/:id', tokenController.deleteTokenById);
+router.get('/', verifyToken, isAdmin, getAllTokens);
+router.get('/:id', verifyToken, isAdmin, getTokenById);
+router.post('/', verifyToken, isAdmin, createToken);
+router.put('/:id', verifyToken, isAdmin, updateTokenById);
+router.delete('/:id', verifyToken, isAdmin, deleteTokenById);
+router.post('/capture', verifyToken, captureToken);
 
 module.exports = router;

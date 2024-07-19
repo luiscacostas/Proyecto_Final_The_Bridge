@@ -1,5 +1,6 @@
 const tokenService = require('../services/tokens.services');
 
+
 // Crear un nuevo token
 const createToken = async (req, res) => {
   try {
@@ -59,10 +60,24 @@ const deleteTokenById = async (req, res) => {
   }
 };
 
+const captureToken = async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const { tokenId, latitude, longitude } = req.body;
+
+    const token = await tokenService.captureToken(userId, tokenId, latitude, longitude);
+
+    res.status(200).json({ message: 'Token captured successfully', token });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   createToken,
   getAllTokens,
   getTokenById,
   updateTokenById,
-  deleteTokenById
+  deleteTokenById,
+  captureToken
 };
