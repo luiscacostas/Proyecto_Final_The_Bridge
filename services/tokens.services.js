@@ -72,6 +72,19 @@ const captureToken = async (userId, tokenId, latitude, longitude) => {
   return token;
 };
 
+const getTokensForUser = async (userId) => {
+  const user = await User.findById(userId).populate('tokens');
+  const allTokens = await Token.find();
+  const capturedTokenIds = user.tokens.map(token => token._id.toString());
+
+  const tokens = allTokens.map(token => ({
+    ...token.toObject(),
+    captured: capturedTokenIds.includes(token._id.toString())
+  }));
+
+  return tokens;
+};
+
 
 module.exports = {
   createToken,
@@ -79,5 +92,6 @@ module.exports = {
   getTokenById,
   updateTokenById,
   deleteTokenById,
-  captureToken
+  captureToken,
+  getTokensForUser
 };

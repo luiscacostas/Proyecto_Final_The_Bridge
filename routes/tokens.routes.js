@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getAllTokens, getTokenById, createToken, updateTokenById, deleteTokenById, captureToken } = require('../controllers/tokens.controllers');
+const { getAllTokens, getTokenById, createToken, updateTokenById, deleteTokenById, captureToken , getTokensForUser} = require('../controllers/tokens.controllers');
 const { verifyToken, isAdmin } = require('../config/jwt');
 
 router.get('/', getAllTokens);

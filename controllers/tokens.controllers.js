@@ -76,16 +76,7 @@ const captureToken = async (req, res) => {
 const getTokensForUser = async (req, res) => {
   try {
     const userId = req.user.userId;
-    const user = await User.findById(userId).populate('tokens');
-
-    const allTokens = await Token.find();
-    const capturedTokenIds = user.tokens.map(token => token._id.toString());
-
-    const tokens = allTokens.map(token => ({
-      ...token.toObject(),
-      captured: capturedTokenIds.includes(token._id.toString())
-    }));
-
+    const tokens = await getTokensForUser(userId);
     res.json(tokens);
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
