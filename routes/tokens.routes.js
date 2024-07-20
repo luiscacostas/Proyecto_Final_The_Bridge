@@ -5,7 +5,7 @@ const { verifyToken, isAdmin } = require('../config/jwt');
 
 router.get('/', getAllTokens);
 router.get('/:id', verifyToken, isAdmin, getTokenById);
-router.post('/', verifyToken, isAdmin, createToken);
+router.post('/', createToken);
 router.put('/:id', verifyToken, isAdmin, updateTokenById);
 router.delete('/:id', verifyToken, isAdmin, deleteTokenById);
 router.post('/capture', verifyToken, captureToken);

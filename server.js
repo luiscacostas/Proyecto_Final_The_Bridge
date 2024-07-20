@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const path = require('path');
 const http = require('http');
 const cors = require('cors');
 const { Server } = require('socket.io'); 
@@ -25,6 +26,7 @@ app.use(express.json());
 
 const error404 = require('./middlewares/error404');
 const morgan = require('./middlewares/morgan');
+app.use(express.static(path.join(__dirname, 'build')));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
@@ -45,7 +47,7 @@ io.on('connection', (socket) => {
 });
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 app.use('*',error404);
