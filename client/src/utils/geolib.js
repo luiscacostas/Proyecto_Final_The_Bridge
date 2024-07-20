@@ -5,8 +5,8 @@ export const calculateDistance = (path) => {
   let distance = 0;
   for (let i = 1; i < path.length; i++) {
     distance += getDistance(
-      { latitude: path[i - 1].latitude, longitude: path[i - 1].longitude },
-      { latitude: path[i].latitude, longitude: path[i].longitude }
+      { latitude: path[i - 1][0], longitude: path[i - 1][1] },
+      { latitude: path[i][0], longitude: path[i][1] }
     );
   }
   return distance;

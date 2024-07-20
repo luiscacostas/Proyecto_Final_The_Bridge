@@ -33,7 +33,7 @@ const Home = () => {
         (position) => {
           const { latitude, longitude } = position.coords;
           setUserPath((prevPath) => {
-            const newPath = [...prevPath, { latitude, longitude, timestamp: new Date() }];
+            const newPath = [...prevPath, [latitude, longitude]];
             const distance = calculateDistance(newPath);
             setTotalDistance(distance);
             return newPath;
@@ -52,14 +52,14 @@ const Home = () => {
     }
   };
 
-  const stopTracking = () => {
+  const stopTracking = async () => {
     if (watchId.current) {
       navigator.geolocation.clearWatch(watchId.current);
       watchId.current = null;
       setIsTracking(false);
       const duration = calculateDuration(startTime, new Date());
       const routeData = { path: userPath, totalDistance, duration };
-      saveRoute(routeData);
+      await saveRoute(routeData);
       console.log('Route saved:', routeData);
     }
   };

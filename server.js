@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/tokens', tokenRoutes)
-app.use('./api/routes', routeRoutes)
+app.use('/api/routes', routeRoutes)
 
 app.use(morgan(':method :host :status - :response-time ms :body'));
 
