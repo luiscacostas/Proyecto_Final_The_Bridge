@@ -76,7 +76,7 @@ const captureToken = async (req, res) => {
 const getTokensForUser = async (req, res) => {
   try {
     const userId = req.user.userId;
-    const tokens = await getTokensForUser(userId);
+    const tokens = await tokenService.getTokensForUser(userId);
     res.json(tokens);
   } catch (error) {
     res.status(500).json({ message: 'Server error' });

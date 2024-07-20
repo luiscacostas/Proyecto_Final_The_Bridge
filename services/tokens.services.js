@@ -56,7 +56,7 @@ const captureToken = async (userId, tokenId, latitude, longitude) => {
     { latitude, longitude }
   );
 
-  if (distance > 100) { // Suponiendo 100 metros como distancia máxima para capturar un token
+  if (distance > 100) {
     throw new Error('Too far from the token');
   }
 
