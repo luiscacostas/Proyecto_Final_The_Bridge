@@ -27,21 +27,16 @@ const UserTokens = () => {
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="user-tokens">
-      <h2>Your Captured Tokens</h2>
-      {tokens.length === 0 ? (
-        <p>You haven't captured any tokens yet.</p>
-      ) : (
-        <ul>
-          {tokens.map(token => (
-            <li key={token._id} className="token-item">
-              <h3>{token.name}</h3>
-              <p>{token.description}</p>
-              <p>Captured at: {new Date(token.capturedAt).toLocaleString()}</p>
-            </li>
-          ))}
-        </ul>
-      )}
+    <div className="user-tokens-container">
+      <h2>My Tokens</h2>
+      <ul>
+        {tokens.map((token) => (
+          <li key={token._id} className={token.captured ? 'captured' : ''}>
+            <span>{token.name}</span>
+            <span>{token.description}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

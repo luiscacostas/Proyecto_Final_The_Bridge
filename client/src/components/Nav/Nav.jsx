@@ -12,7 +12,7 @@ const Nav = ({ isAuthenticated, setIsAuthenticated }) => {
   };
 
   return (
-    <nav>
+    <nav className="navbar">
       <ul>
         {!isAuthenticated ? (
           <>
@@ -30,6 +30,9 @@ const Nav = ({ isAuthenticated, setIsAuthenticated }) => {
             </li>
             <li>
               <Link to="/my-tokens">My Tokens</Link>
+            </li>
+            <li>
+              <Link to="/saved-routes">Saved Routes</Link>
             </li>
             <li>
               <button onClick={handleLogout}>Logout</button>

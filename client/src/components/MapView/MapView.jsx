@@ -74,28 +74,19 @@ const MapView = ({ userPath }) => {
   };
 
   return (
-    <div style={{ height: '100vh', width: '100%' }}>
+    <div className="map-container">
       <MapContainer center={[40.416775, -3.703790]} zoom={13} style={{ height: '100%', width: '100%' }}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
         {tokens.map(token => (
-          <Marker 
-            key={token._id} 
-            position={[token.latitude, token.longitude]}
-            icon={token.captured ? capturedIcon : new L.Icon.Default()}
-          >
+          <Marker key={token._id} position={[token.latitude, token.longitude]}>
             <Popup>
               {token.name}<br />{token.description}
-              {!token.captured && (
-                <button 
-                  onClick={() => handleCaptureToken(token._id, token.latitude, token.longitude)}
-                  disabled={!isNearToken(token.latitude, token.longitude)}
-                >
-                  Capture Token
-                </button>
-              )}
+              <button onClick={() => handleCaptureToken(token._id, userPath[userPath.length - 1][0], userPath[userPath.length - 1][1])}>
+                Capture Token
+              </button>
             </Popup>
           </Marker>
         ))}

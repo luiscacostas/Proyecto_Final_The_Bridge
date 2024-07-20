@@ -1,0 +1,29 @@
+.App {
+    text-align: center;
+  
+    h1 {
+      font-size: 2rem;
+      color: #333;
+    }
+  
+    .banner {
+      width: 100%;
+      height: 50vh;
+      background: url('path_to_your_image.jpg') no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  
+    .content {
+      padding: 2rem;
+  
+      @media (min-width: 768px) {
+        padding: 3rem;
+      }
+  
+      @media (min-width: 1024px) {
+        padding: 4rem;
+      }
+    }
+  }

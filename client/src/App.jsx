@@ -7,7 +7,7 @@ import Nav from './components/Nav';
 import AdminDashboard from './components/AdminDashboard';
 import UserTokens from './components/UserTokens'; 
 import SavedRoutes from './components/SavedRoutes';
-import './App.css';
+import './styles/style.scss';
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));

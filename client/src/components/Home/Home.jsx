@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import ImageBanner from '../ImageBanner';
+import ImageBanner from '../ImageBanner/ImageBanner';
 import MapView from '../MapView';
 import LocationButton from '../LocationButton';
 import { getUserTokens, saveRoute } from '../../services/api';
