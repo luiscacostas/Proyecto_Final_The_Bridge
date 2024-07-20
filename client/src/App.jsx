@@ -6,6 +6,7 @@ import Home from './components/Home';
 import Nav from './components/Nav';
 import AdminDashboard from './components/AdminDashboard';
 import UserTokens from './components/UserTokens'; 
+import SavedRoutes from './components/SavedRoutes';
 import './App.css';
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
         <Route path="/home" element={isAuthenticated ? <Home /> : <Navigate to="/login" />} />
         <Route path="/admin" element={isAuthenticated && isAdmin ? <AdminDashboard /> : <Navigate to="/login" />} />
         <Route path="/my-tokens" element={isAuthenticated ? <UserTokens /> : <Navigate to="/login" />} />
+        <Route path="/saved-routes" element={isAuthenticated ? <SavedRoutes /> : <Navigate to="/login" />} />
         <Route path="/" element={<Navigate to="/home" />} />
       </Routes>
     </Router>

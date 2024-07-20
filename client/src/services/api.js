@@ -152,3 +152,32 @@ export const updateToken = async (id, tokenData) => {
   }
   return await response.json();
 };
+
+export const saveRoute = async (routeData) => {
+  const token = localStorage.getItem('token');
+  const response = await fetch(`${API_URL}/routes`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify(routeData),
+  });
+  if (!response.ok) {
+    throw new Error('Failed to save route');
+  }
+  return await response.json();
+};
+
+export const getSavedRoutes = async () => {
+  const token = localStorage.getItem('token');
+  const response = await fetch(`${API_URL}/routes`, {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+  if (!response.ok) {
+    throw new Error('Failed to fetch routes');
+  }
+  return await response.json();
+};

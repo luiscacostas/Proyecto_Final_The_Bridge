@@ -8,6 +8,7 @@ const connectDB = require('./config/db_mongo');
 const userRoutes = require('./routes/users.routes');
 const tokenRoutes = require('./routes/tokens.routes');
 const authRoutes = require('./routes/auth.routes');
+const routeRoutes = require('./routes/routes.routes')
 
 const app = express();
 const server = http.createServer(app);
@@ -36,6 +37,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/tokens', tokenRoutes)
+app.use('./api/routes', routeRoutes)
 
 app.use(morgan(':method :host :status - :response-time ms :body'));
 
