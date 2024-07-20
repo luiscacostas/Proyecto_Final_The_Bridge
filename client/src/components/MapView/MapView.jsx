@@ -39,12 +39,18 @@ const MapView = ({ tokens, userPath, onTokenCaptured }) => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
         {tokens.map(token => (
-          <Marker key={token._id} position={[token.latitude, token.longitude]}>
+          <Marker 
+            key={token._id} 
+            position={[token.latitude, token.longitude]}
+            opacity={token.captured ? 0.5 : 1} // Cambia la opacidad si el token está capturado
+          >
             <Popup>
               {token.name}<br />{token.description}
-              <button onClick={() => handleCaptureToken(token._id, userPath[userPath.length - 1][0], userPath[userPath.length - 1][1])}>
-                Capture Token
-              </button>
+              {!token.captured && (
+                <button onClick={() => handleCaptureToken(token._id, userPath[userPath.length - 1][0], userPath[userPath.length - 1][1])}>
+                  Capture Token
+                </button>
+              )}
             </Popup>
           </Marker>
         ))}

@@ -9,5 +9,6 @@ router.post('/', createToken);
 router.put('/:id', verifyToken, isAdmin, updateTokenById);
 router.delete('/:id', verifyToken, isAdmin, deleteTokenById);
 router.post('/capture', verifyToken, captureToken);
+router.get('/user-tokens', getTokensForUser);
 
 module.exports = router;

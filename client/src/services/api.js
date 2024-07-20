@@ -60,8 +60,13 @@ export const getUsers = async () => {
 };
 
 
-export const getUserTokens = async (userId) => {
-  const response = await fetch(`${API_URL}/users/${userId}/tokens`);
+export const getUserTokens = async () => {
+  const token = localStorage.getItem('token');
+  const response = await fetch(`${API_URL}/tokens/user-tokens`, {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
   if (!response.ok) {
     throw new Error('Failed to fetch user tokens');
   }

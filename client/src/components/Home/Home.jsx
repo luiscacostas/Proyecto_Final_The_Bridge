@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import ImageBanner from '../ImageBanner/ImageBanner';
 import MapView from '../MapView';
 import LocationButton from '../LocationButton';
-import { getTokens } from '../../services/api';
+import { getUserTokens } from '../../services/api';
 
 const Home = () => {
   const [tokens, setTokens] = useState([]);
@@ -13,7 +13,7 @@ const Home = () => {
   useEffect(() => {
     const fetchTokens = async () => {
       try {
-        const data = await getTokens();
+        const data = await getUserTokens();
         setTokens(data);
       } catch (error) {
         console.error('Error fetching tokens:', error);
@@ -53,14 +53,14 @@ const Home = () => {
   };
 
   const handleTokenCaptured = (tokenId) => {
-    setTokens(tokens.filter(token => token._id !== tokenId));
+    setTokens(tokens.map(token => token._id === tokenId ? { ...token, captured: true } : token));
   };
 
   return (
     <>
       <div className="App">
-            <h1>Mi aplicación React</h1>
-            <ImageBanner />
+        <h1>Mi aplicación React</h1>
+        <ImageBanner />
       </div>
       <div>
         <LocationButton onStart={startTracking} onStop={stopTracking} isTracking={isTracking} />
