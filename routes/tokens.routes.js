@@ -4,10 +4,10 @@ const { getAllTokens, getTokenById, createToken, updateTokenById, deleteTokenByI
 const { verifyToken, isAdmin } = require('../config/jwt');
 
 router.get('/', getAllTokens);
-router.get('/:id', verifyToken, isAdmin, getTokenById);
+router.get('/:id', verifyToken, getTokenById);
 router.post('/', createToken);
-router.put('/:id', verifyToken, isAdmin, updateTokenById);
-router.delete('/:id', verifyToken, isAdmin, deleteTokenById);
+router.put('/:id', verifyToken, updateTokenById);
+router.delete('/:id', verifyToken,  deleteTokenById);
 router.post('/capture', verifyToken, captureToken);
 router.get('/user-tokens', verifyToken, getTokensForUser);
 
