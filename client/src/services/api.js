@@ -26,7 +26,7 @@ export const login = async (userData) => {
     throw new Error('Failed to login');
   }
   const data = await response.json();
-  localStorage.setItem('token', data.token);
+  localStorage.setItem('token', data.token); // Almacena el token en el localStorage
   return data;
 };
 
