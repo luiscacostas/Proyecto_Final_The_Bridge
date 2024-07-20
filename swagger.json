@@ -1,0 +1,618 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Token Go API",
+      "description": "API documentation for Token Go",
+      "version": "1.0.0"
+    },
+    "servers": [
+      {
+        "url": "https://proyecto-final-the-bridge.onrender.com",
+        "description": "server"
+      },
+      {
+        "url": "https://proyecto-final-the-bridge.onrender.com",
+        "description": "Production server"
+      }
+    ],
+    "paths": {
+      "/users": {
+        "get": {
+          "summary": "Get all users",
+          "tags": ["Users"],
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a new user",
+          "tags": ["Users"],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "201": {
+              "description": "User created successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Error creating user"
+            }
+          }
+        }
+      },
+      "/users/{id}": {
+        "get": {
+          "summary": "Get a user by ID",
+          "tags": ["Users"],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "schema": {
+                "type": "string"
+              },
+              "required": true,
+              "description": "User ID"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "User not found"
+            }
+          }
+        },
+        "put": {
+          "summary": "Update a user by ID",
+          "tags": ["Users"],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "schema": {
+                "type": "string"
+              },
+              "required": true,
+              "description": "User ID"
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "User updated successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "User not found"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete a user by ID",
+          "tags": ["Users"],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "schema": {
+                "type": "string"
+              },
+              "required": true,
+              "description": "User ID"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "User deleted successfully"
+            },
+            "404": {
+              "description": "User not found"
+            }
+          }
+        }
+      },
+      "/users/{id}/tokens": {
+        "get": {
+          "summary": "Get tokens of a user by ID",
+          "tags": ["Users"],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "schema": {
+                "type": "string"
+              },
+              "required": true,
+              "description": "User ID"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Tokens retrieved successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "userTokens": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/Token"
+                        }
+                      },
+                      "missingTokens": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/Token"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "User not found"
+            }
+          }
+        }
+      },
+      "/tokens": {
+        "get": {
+          "summary": "Get all tokens",
+          "tags": ["Tokens"],
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Token"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a new token",
+          "tags": ["Tokens"],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Token"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "201": {
+              "description": "Token created successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Token"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Error creating token"
+            }
+          }
+        }
+      },
+      "/tokens/{id}": {
+        "get": {
+          "summary": "Get a token by ID",
+          "tags": ["Tokens"],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "schema": {
+                "type": "string"
+              },
+              "required": true,
+              "description": "Token ID"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Token"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Token not found"
+            }
+          }
+        },
+        "put": {
+          "summary": "Update a token by ID",
+          "tags": ["Tokens"],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "schema": {
+                "type": "string"
+              },
+              "required": true,
+              "description": "Token ID"
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Token"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Token updated successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Token"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Token not found"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete a token by ID",
+          "tags": ["Tokens"],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "schema": {
+                "type": "string"
+              },
+              "required": true,
+              "description": "Token ID"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Token deleted successfully"
+            },
+            "404": {
+              "description": "Token not found"
+            }
+          }
+        }
+      },
+      "/tokens/capture": {
+        "post": {
+          "summary": "Capture a token based on geolocation",
+          "tags": ["Tokens"],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "tokenId": {
+                      "type": "string"
+                    },
+                    "latitude": {
+                      "type": "number"
+                    },
+                    "longitude": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Token captured successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Token"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Error capturing token"
+            }
+          }
+        }
+      },
+      "/routes": {
+        "get": {
+          "summary": "Get all routes of a user",
+          "tags": ["Routes"],
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "schema": {
+                "type": "string"
+              },
+              "required": true,
+              "description": "Bearer token"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Routes retrieved successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Route"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Error retrieving routes"
+            }
+          }
+        },
+        "post": {
+          "summary": "Save a new route",
+          "tags": ["Routes"],
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "schema": {
+                "type": "string"
+              },
+              "required": true,
+              "description": "Bearer token"
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Route"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "201": {
+              "description": "Route saved successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Route"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Error saving route"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "User": {
+          "type": "object",
+          "required": ["email", "password"],
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "User ID"
+            },
+            "email": {
+              "type": "string",
+              "description": "User email"
+            },
+            "password": {
+              "type": "string",
+              "description": "User password"
+            },
+            "role": {
+              "type": "string",
+              "description": "User role",
+              "enum": ["user", "admin"]
+            },
+            "isActive": {
+              "type": "boolean",
+              "description": "Is user active"
+            },
+            "isLoggedIn": {
+              "type": "boolean",
+              "description": "Is user logged in"
+            },
+            "lastLoggedIn": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Last logged in date"
+            },
+            "tokens": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "User tokens"
+            }
+          },
+          "example": {
+            "id": "d5fE_asz",
+            "email": "user@example.com",
+            "password": "password123",
+            "role": "user",
+            "isActive": true,
+            "isLoggedIn": false,
+            "lastLoggedIn": "2021-06-10T13:00:00.000Z",
+            "tokens": []
+          }
+        },
+        "Token": {
+          "type": "object",
+          "required": ["name", "latitude", "longitude"],
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Token ID"
+            },
+            "name": {
+              "type": "string",
+              "description": "Token name"
+            },
+            "description": {
+              "type": "string",
+              "description": "Token description"
+            },
+            "latitude": {
+              "type": "number",
+              "description": "Token latitude"
+            },
+            "longitude": {
+              "type": "number",
+              "description": "Token longitude"
+            }
+          },
+          "example": {
+            "id": "d5fE_asz",
+            "name": "Sample Token",
+            "description": "This is a sample token",
+            "latitude": 40.73061,
+            "longitude": -73.935242
+          }
+        },
+        "Route": {
+          "type": "object",
+          "required": ["user", "path", "totalDistance", "duration"],
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Route ID"
+            },
+            "user": {
+              "type": "string",
+              "description": "User ID"
+            },
+            "path": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "latitude": {
+                    "type": "number"
+                  },
+                  "longitude": {
+                    "type": "number"
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              },
+              "description": "Route path"
+            },
+            "totalDistance": {
+              "type": "number",
+              "description": "Total distance of the route"
+            },
+            "duration": {
+              "type": "string",
+              "description": "Duration of the route"
+            }
+          },
+          "example": {
+            "id": "d5fE_asz",
+            "user": "60d0fe4f5311236168a109ca",
+            "path": [
+              {
+                "latitude": 40.73061,
+                "longitude": -73.935242,
+                "timestamp": "2021-06-10T13:00:00.000Z"
+              }
+            ],
+            "totalDistance": 5.2,
+            "duration": "1h 30m"
+          }
+        }
+      }
+    }
+  }
+  

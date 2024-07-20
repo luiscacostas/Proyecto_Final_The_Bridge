@@ -1,7 +1,21 @@
+/**
+ * @author Luis Carlos
+ * @exports services
+ * @memberof MongoDBFunctions 
+ */
+
 const tokenService = require('../services/tokens.services');
 
-
-// Crear un nuevo token
+/**
+ * Descripción: Este controlador crea un nuevo token.
+ * @memberof MongoDBFunctions 
+ * @method createToken 
+ * @async 
+ * @param {Object} req - El objeto de la solicitud.
+ * @param {Object} res - El objeto de la respuesta.
+ * @return {Promise<void>}
+ * @throws {Error} Error al crear el token.
+ */
 const createToken = async (req, res) => {
   try {
     const token = await tokenService.createToken(req.body);
@@ -11,7 +25,16 @@ const createToken = async (req, res) => {
   }
 };
 
-// Obtener todos los tokens
+/**
+ * Descripción: Este controlador obtiene todos los tokens.
+ * @memberof MongoDBFunctions 
+ * @method getAllTokens 
+ * @async 
+ * @param {Object} req - El objeto de la solicitud.
+ * @param {Object} res - El objeto de la respuesta.
+ * @return {Promise<void>}
+ * @throws {Error} Error al obtener los tokens.
+ */
 const getAllTokens = async (req, res) => {
   try {
     const tokens = await tokenService.getAllTokens();
@@ -21,7 +44,16 @@ const getAllTokens = async (req, res) => {
   }
 };
 
-// Obtener un token por ID
+/**
+ * Descripción: Este controlador obtiene un token por su ID.
+ * @memberof MongoDBFunctions 
+ * @method getTokenById 
+ * @async 
+ * @param {Object} req - El objeto de la solicitud.
+ * @param {Object} res - El objeto de la respuesta.
+ * @return {Promise<void>}
+ * @throws {Error} Error al obtener el token.
+ */
 const getTokenById = async (req, res) => {
   try {
     const token = await tokenService.getTokenById(req.params.id);
@@ -34,7 +66,16 @@ const getTokenById = async (req, res) => {
   }
 };
 
-// Actualizar un token por ID
+/**
+ * Descripción: Este controlador actualiza un token por su ID.
+ * @memberof MongoDBFunctions 
+ * @method updateTokenById 
+ * @async 
+ * @param {Object} req - El objeto de la solicitud.
+ * @param {Object} res - El objeto de la respuesta.
+ * @return {Promise<void>}
+ * @throws {Error} Error al actualizar el token.
+ */
 const updateTokenById = async (req, res) => {
   try {
     const token = await tokenService.updateTokenById(req.params.id, req.body);
@@ -47,7 +88,16 @@ const updateTokenById = async (req, res) => {
   }
 };
 
-// Eliminar un token por ID
+/**
+ * Descripción: Este controlador elimina un token por su ID.
+ * @memberof MongoDBFunctions 
+ * @method deleteTokenById 
+ * @async 
+ * @param {Object} req - El objeto de la solicitud.
+ * @param {Object} res - El objeto de la respuesta.
+ * @return {Promise<void>}
+ * @throws {Error} Error al eliminar el token.
+ */
 const deleteTokenById = async (req, res) => {
   try {
     const token = await tokenService.deleteTokenById(req.params.id);
@@ -60,6 +110,16 @@ const deleteTokenById = async (req, res) => {
   }
 };
 
+/**
+ * Descripción: Este controlador captura un token basado en la geolocalización.
+ * @memberof MongoDBFunctions 
+ * @method captureToken 
+ * @async 
+ * @param {Object} req - El objeto de la solicitud.
+ * @param {Object} res - El objeto de la respuesta.
+ * @return {Promise<void>}
+ * @throws {Error} Error al capturar el token.
+ */
 const captureToken = async (req, res) => {
   try {
     const userId = req.user.userId;
@@ -73,6 +133,16 @@ const captureToken = async (req, res) => {
   }
 };
 
+/**
+ * Descripción: Este controlador obtiene los tokens para un usuario específico.
+ * @memberof MongoDBFunctions 
+ * @method getTokensForUser 
+ * @async 
+ * @param {Object} req - El objeto de la solicitud.
+ * @param {Object} res - El objeto de la respuesta.
+ * @return {Promise<void>}
+ * @throws {Error} Error al obtener los tokens del usuario.
+ */
 const getTokensForUser = async (req, res) => {
   try {
     const userId = req.user.userId;

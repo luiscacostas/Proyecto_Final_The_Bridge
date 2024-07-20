@@ -34,6 +34,9 @@ const morgan = require('./middlewares/morgan');
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/docs', express.static(path.join(__dirname, 'docs')));
+
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/tokens', tokenRoutes)

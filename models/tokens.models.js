@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Modelo de token para la base de datos MongoDB.
+ * @author Luis Carlos
+ * @exports Token
+ * @memberof MongoDBFunctions 
+ */
+
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 

@@ -1,5 +1,22 @@
+/**
+ * @fileoverview Controladores para la gestión de rutas.
+ * @author Luis Carlos
+ * @exports services
+ * @memberof MongoDBFunctions 
+ */
+
 const routeService = require('../services/routes.services');
 
+/**
+ * Descripción: Este controlador guarda una nueva ruta para un usuario.
+ * @memberof MongoDBFunctions 
+ * @method saveRoute 
+ * @async 
+ * @param {Object} req - El objeto de la solicitud.
+ * @param {Object} res - El objeto de la respuesta.
+ * @return {Promise<void>}
+ * @throws {Error} Error al guardar la ruta.
+ */
 const saveRoute = async (req, res) => {
   try {
     const { path, totalDistance, duration } = req.body;
@@ -11,6 +28,16 @@ const saveRoute = async (req, res) => {
   }
 };
 
+/**
+ * Descripción: Este controlador obtiene todas las rutas de un usuario.
+ * @memberof MongoDBFunctions 
+ * @method getRoutes 
+ * @async 
+ * @param {Object} req - El objeto de la solicitud.
+ * @param {Object} res - El objeto de la respuesta.
+ * @return {Promise<void>}
+ * @throws {Error} Error al obtener las rutas.
+ */
 const getRoutes = async (req, res) => {
   try {
     const userId = req.user.userId;
@@ -25,5 +52,3 @@ module.exports = {
   saveRoute,
   getRoutes
 };
-
-

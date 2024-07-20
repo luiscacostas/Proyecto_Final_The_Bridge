@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Modelo de ruta para la base de datos MongoDB.
+ * @author Luis Carlos
+ * @exports Route
+ * @memberof MongoDBFunctions 
+ */
+
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 

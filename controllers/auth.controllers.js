@@ -1,8 +1,24 @@
+/**
+ * @fileoverview Controladores de autenticación para el registro y login de usuarios.
+ * @author Luis Carlos
+ * @exports services
+ * @memberof MongoDBFunctions 
+ */
+
 const User = require('../models/users.models');
 const bcrypt = require('bcryptjs');
 const { generateToken } = require('../config/jwt');
 const { validationResult } = require('express-validator');
 
+/**
+ * Descripción: Controlador para el registro de nuevos usuarios.
+ * @memberof MongoDBFunctions 
+ * @method register 
+ * @async 
+ * @param {Object} req - El objeto de la solicitud.
+ * @param {Object} res - El objeto de la respuesta.
+ * @returns {Promise<void>}
+ */
 const register = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -37,6 +53,15 @@ const register = async (req, res) => {
   }
 };
 
+/**
+ * Descripción: Controlador para el login de usuarios.
+ * @memberof MongoDBFunctions 
+ * @method login 
+ * @async 
+ * @param {Object} req - El objeto de la solicitud.
+ * @param {Object} res - El objeto de la respuesta.
+ * @returns {Promise<void>}
+ */
 const login = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
