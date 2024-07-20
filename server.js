@@ -26,7 +26,7 @@ app.use(express.json());
 
 const error404 = require('./middlewares/error404');
 const morgan = require('./middlewares/morgan');
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
@@ -47,7 +47,7 @@ io.on('connection', (socket) => {
 });
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 app.use('*',error404);
