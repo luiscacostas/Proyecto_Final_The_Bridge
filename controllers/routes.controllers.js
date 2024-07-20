@@ -1,10 +1,10 @@
-const { saveRoute, getRoutes } = require('../services/routes.services');
+const routeService = require('../services/routes.services');
 
 const saveRoute = async (req, res) => {
   try {
     const { path, totalDistance, duration } = req.body;
     const userId = req.user.userId;
-    const route = await saveRoute(userId, path, totalDistance, duration);
+    const route = await routeService.saveRoute(userId, path, totalDistance, duration);
     res.json(route);
   } catch (error) {
     res.status(500).json({ message: 'Server error', error: error.message });
@@ -14,7 +14,7 @@ const saveRoute = async (req, res) => {
 const getRoutes = async (req, res) => {
   try {
     const userId = req.user.userId;
-    const routes = await getRoutes(userId);
+    const routes = await routeService.getRoutes(userId);
     res.json(routes);
   } catch (error) {
     res.status(500).json({ message: 'Server error', error: error.message });

@@ -1,16 +1,29 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const routeSchema = new mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+const routeSchema = new Schema({
+  user: { 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'User', 
+    required: true 
+  },
   path: [{
-    latitude: Number,
-    longitude: Number,
+    latitude: { type: Number },
+    longitude: { type: Number },
     timestamp: { type: Date, default: Date.now }
   }],
-  totalDistance: { type: Number, required: true },
-  duration: { type: String, required: true }
-}, {
-  timestamps: true
+  totalDistance: { 
+    type: Number, 
+    required: true 
+  },
+  duration: { 
+    type: String, 
+    required: true 
+  }
+}, { 
+  timestamps: true 
 });
 
-module.exports = mongoose.model('Route', routeSchema);
+const Route = mongoose.model('Route', routeSchema);
+
+module.exports = Route;
