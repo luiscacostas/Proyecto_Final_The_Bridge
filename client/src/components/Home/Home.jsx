@@ -2,15 +2,12 @@ import React, { useEffect, useState, useRef } from 'react';
 import ImageBanner from '../ImageBanner/ImageBanner';
 import MapView from '../MapView';
 import LocationButton from '../LocationButton';
-import { getUserTokens, saveRoute } from '../../services/api';
-import { calculateDistance, calculateDuration } from '../../utils/geolib';
+import { getUserTokens } from '../../services/api';
 
 const Home = () => {
   const [tokens, setTokens] = useState([]);
   const [isTracking, setIsTracking] = useState(false);
   const [userPath, setUserPath] = useState([]);
-  const [startTime, setStartTime] = useState(null);
-  const [totalDistance, setTotalDistance] = useState(0);
   const watchId = useRef(null);
 
   useEffect(() => {
@@ -28,16 +25,10 @@ const Home = () => {
 
   const startTracking = () => {
     if (navigator.geolocation) {
-      setStartTime(new Date());
       watchId.current = navigator.geolocation.watchPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          setUserPath((prevPath) => {
-            const newPath = [...prevPath, [latitude, longitude]];
-            const distance = calculateDistance(newPath);
-            setTotalDistance(distance);
-            return newPath;
-          });
+          setUserPath((prevPath) => [...prevPath, { latitude, longitude, timestamp: new Date() }]);
         },
         (error) => console.error('Error getting position:', error),
         {
@@ -52,15 +43,11 @@ const Home = () => {
     }
   };
 
-  const stopTracking = async () => {
+  const stopTracking = () => {
     if (watchId.current) {
       navigator.geolocation.clearWatch(watchId.current);
       watchId.current = null;
       setIsTracking(false);
-      const duration = calculateDuration(startTime, new Date());
-      const routeData = { path: userPath, totalDistance, duration };
-      await saveRoute(routeData);
-      console.log('Route saved:', routeData);
     }
   };
 
@@ -77,10 +64,6 @@ const Home = () => {
       <div>
         <LocationButton onStart={startTracking} onStop={stopTracking} isTracking={isTracking} />
         <MapView tokens={tokens} userPath={userPath} onTokenCaptured={handleTokenCaptured} />
-        <div>
-          <p>Total Distance: {totalDistance.toFixed(2)} meters</p>
-          <p>Duration: {startTime ? calculateDuration(startTime, new Date()) : 'N/A'}</p>
-        </div>
       </div>
     </>
   );
