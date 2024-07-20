@@ -26,6 +26,7 @@ app.use(express.json());
 
 const error404 = require('./middlewares/error404');
 const morgan = require('./middlewares/morgan');
+
 app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use('/api/auth', authRoutes);
