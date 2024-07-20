@@ -24,9 +24,17 @@ const Nav = ({ isAuthenticated, setIsAuthenticated }) => {
             </li>
           </>
         ) : (
-          <li>
-            <button onClick={handleLogout}>Logout</button>
-          </li>
+          <>
+            <li>
+              <Link to="/home">Home</Link>
+            </li>
+            <li>
+              <Link to="/my-tokens">My Tokens</Link>
+            </li>
+            <li>
+              <button onClick={handleLogout}>Logout</button>
+            </li>
+          </>
         )}
       </ul>
     </nav>
