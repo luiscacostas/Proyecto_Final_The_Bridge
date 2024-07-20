@@ -62,15 +62,21 @@ export const getUsers = async () => {
 
 export const getUserTokens = async () => {
   const token = localStorage.getItem('token');
-  const response = await fetch(`${API_URL}/tokens/user-tokens`, {
-    headers: {
-      'Authorization': `Bearer ${token}`,
-    },
-  });
-  if (!response.ok) {
-    throw new Error('Failed to fetch user tokens');
+  try {
+    const response = await fetch(`${API_URL}/tokens/user-tokens`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to fetch user tokens');
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error in getUserTokens:', error);
+    throw error;
   }
-  return await response.json();
 };
 
 export const createUser = async (userData) => {

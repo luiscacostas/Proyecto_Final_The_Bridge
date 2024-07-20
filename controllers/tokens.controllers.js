@@ -79,7 +79,8 @@ const getTokensForUser = async (req, res) => {
     const tokens = await tokenService.getTokensForUser(userId);
     res.json(tokens);
   } catch (error) {
-    res.status(500).json({ message: 'Server error' });
+    console.error('Error in getTokensForUser:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
 

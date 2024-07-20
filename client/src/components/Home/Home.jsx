@@ -13,13 +13,15 @@ const Home = () => {
   useEffect(() => {
     const fetchTokens = async () => {
       try {
+        console.log('Fetching tokens...');
         const data = await getUserTokens();
+        console.log('Tokens received:', data);
         setTokens(data);
       } catch (error) {
         console.error('Error fetching tokens:', error);
       }
     };
-
+  
     fetchTokens();
   }, []);
 

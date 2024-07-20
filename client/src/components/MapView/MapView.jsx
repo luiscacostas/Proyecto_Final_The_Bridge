@@ -53,7 +53,16 @@ const MapView = ({ tokens, userPath, onTokenCaptured }) => {
               )}
             </Popup>
           </Marker>
-        ))}
+        ))},
+        {Array.isArray(tokens) && tokens.map(token => (
+            <Marker 
+            key={token._id} 
+            position={[token.latitude, token.longitude]}
+            opacity={token.captured ? 0.5 : 1}
+          >
+            {/* ... */}
+          </Marker>
+        ))},
         {userPath.length > 0 && (
           <>
             <Polyline positions={userPath} color="blue" />

@@ -73,16 +73,21 @@ const captureToken = async (userId, tokenId, latitude, longitude) => {
 };
 
 const getTokensForUser = async (userId) => {
-  const user = await User.findById(userId).populate('tokens');
-  const allTokens = await Token.find();
-  const capturedTokenIds = user.tokens.map(token => token._id.toString());
+  try {
+    const user = await User.findById(userId).populate('tokens');
+    const allTokens = await Token.find();
+    const capturedTokenIds = user.tokens.map(token => token._id.toString());
 
-  const tokens = allTokens.map(token => ({
-    ...token.toObject(),
-    captured: capturedTokenIds.includes(token._id.toString())
-  }));
+    const tokens = allTokens.map(token => ({
+      ...token.toObject(),
+      captured: capturedTokenIds.includes(token._id.toString())
+    }));
 
-  return tokens;
+    return tokens;
+  } catch (error) {
+    console.error('Error in getTokensForUser service:', error);
+    throw new Error(`Error fetching tokens for user: ${error.message}`);
+  }
 };
 
 
