@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import ImageBanner from '../ImageBanner/ImageBanner';
 import MapView from '../MapView';
-import SavedRoutes from '../SavedRoutes/SavedRoutes';
+import SavedRoutes from '../SavedRoutes';
 import LocationButton from '../LocationButton';
 import { getUserTokens, getTokens } from '../../services/api';
 
@@ -72,8 +72,9 @@ const Home = ({ isAuthenticated }) => {
       <div>
         <LocationButton onStart={startTracking} onStop={stopTracking} isTracking={isTracking} />
         <MapView tokens={tokens} userPath={userPath} onTokenCaptured={handleTokenCaptured} />
+        <SavedRoutes userPath={userPath} isTracking={isTracking} />
       </div>
-      <SavedRoutes userPath={userPath} isTracking={isTracking} />
+      
     </>
   );
 };
