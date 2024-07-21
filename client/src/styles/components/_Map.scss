@@ -1,3 +1,4 @@
+@import '../utils/variables.scss';
 .map-container {
     height: 600px;
     width: 80%;
@@ -14,7 +15,7 @@
     }
   
     .leaflet-popup-content-wrapper {
-      background: rgba(240, 6, 6, 0.9);
+      background: $pink;
       border-radius: 10px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     }
@@ -34,13 +35,13 @@
       font-size: 0.9rem;
       border: none;
       border-radius: 20px;
-      background: linear-gradient(45deg, #ff6f61, #de1a1a);
+      background-color: $purple;
       color: white;
       cursor: pointer;
       transition: background 0.5s, transform 0.2s, box-shadow 0.2s;
   
       &:hover {
-        background: linear-gradient(45deg, #de1a1a, #ff6f61);
+        background-color: $lightBlue;
         transform: scale(1.05);
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
       }

@@ -1,5 +1,6 @@
+@import '../utils/variables.scss';
 .navbar {
-    background: linear-gradient(45deg, #6a11cb, #2575fc);
+    background: linear-gradient(45deg, $darkBlue, $lightBlue);
     padding: 1rem;
     text-align: center;
     
@@ -15,7 +16,7 @@
       li {
         margin: 0.5rem 0;
         justify-content: space-between;
-        font-size: 3rem;
+        font-size: 2rem;
   
         a, button {
           text-decoration: none;
@@ -27,7 +28,7 @@
           cursor: pointer;
           
           &:hover {
-            color: #ffdd57;
+            color: $pink;
             transform: scale(1.1);
           }
         }
