@@ -5,7 +5,7 @@ import Login from './components/Login';
 import Home from './components/Home';
 import Nav from './components/Nav';
 import AdminDashboard from './components/AdminDashboard';
-//import UserTokens from './components/UserTokens';
+import UserTokens from './components/UserTokens';
 import SavedRoutes from './components/SavedRoutes'; 
 import Footer from './components/Footer';
 import './styles/style.scss';
@@ -31,6 +31,7 @@ const App = () => {
       <Routes>
         <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/my-tokens" element={isAuthenticated ? <UserTokens /> : <Navigate to="/login" />} />
         <Route path="/home" element={
           <Home 
             isAuthenticated={isAuthenticated} 
