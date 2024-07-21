@@ -38,9 +38,14 @@ const Nav = ({ isAuthenticated, setIsAuthenticated}) => {
             <li>
               <Link to="/my-tokens">My Tokens</Link>
             </li>
-            {isAdmin && (
+            {isAuthenticated && isAdmin && (
               <li>
-                <Link to="/admin">Admin</Link>
+                <Link to="/admin">Admin Dashboard</Link>
+              </li>
+            )}
+            {isAuthenticated && (
+              <li>
+                <Link to="/saved-routes">Saved Routes</Link>
               </li>
             )}
             <li>

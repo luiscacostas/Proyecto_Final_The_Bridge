@@ -30,15 +30,24 @@ const capturedIcon = new L.DivIcon({
   popupAnchor: [0, -24],
 });
 
+const userIcon = new L.Icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
+
 const MapView = ({ tokens, userPath, onTokenCaptured, isAuthenticated }) => {
   const navigate = useNavigate();
+
   useEffect(() => {
     console.log('Tokens in MapView:', tokens);
     console.log('User Path:', userPath);
   }, [tokens, userPath]);
 
   const handleCaptureToken = async (tokenId) => {
-
     if (!isAuthenticated) {
       navigate('/register');
       return;
@@ -55,9 +64,17 @@ const MapView = ({ tokens, userPath, onTokenCaptured, isAuthenticated }) => {
     }
   };
 
+  const center = userPath.length > 0 
+    ? [userPath[userPath.length - 1].latitude, userPath[userPath.length - 1].longitude] 
+    : [40.416775, -3.703790];
+
   return (
     <div className="map-container">
-      <MapContainer center={[40.416775, -3.703790]} zoom={13} style={{ height: '100%', width: '100%' }}>
+      <MapContainer center={center} zoom={13} style={{ height: '100%', width: '100%' }}>
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        />
         {tokens.map(token => (
           <Marker
             key={token._id}
@@ -74,6 +91,20 @@ const MapView = ({ tokens, userPath, onTokenCaptured, isAuthenticated }) => {
             </Popup>
           </Marker>
         ))}
+        {userPath.length > 1 && (
+          <Polyline 
+            positions={userPath.map(point => [point.latitude, point.longitude])}
+            color="blue"
+          />
+        )}
+        {userPath.length > 0 && (
+          <Marker
+            position={[userPath[userPath.length - 1].latitude, userPath[userPath.length - 1].longitude]}
+            icon={userIcon}
+          >
+            <Popup>Your current position</Popup>
+          </Marker>
+        )}
       </MapContainer>
     </div>
   );
