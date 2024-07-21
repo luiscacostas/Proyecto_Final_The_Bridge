@@ -29,6 +29,9 @@ const UserTokens = () => {
   return (
     <div className="user-tokens-container">
   <h2>My Tokens</h2>
+  {tokens.length === 0 ? (
+    <p>You haven't saved any tokens yet.</p>
+  ) : (
   <ul>
     {tokens.map((token) => (
       <li key={token._id} className={token.captured ? 'captured' : ''}>
@@ -37,6 +40,7 @@ const UserTokens = () => {
       </li>
     ))}
   </ul>
+  )}
 </div>
   );
 };

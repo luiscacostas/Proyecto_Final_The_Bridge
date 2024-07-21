@@ -1,15 +1,17 @@
 import React from 'react';
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
-import imagen1 from '../../assets/9149ca7d-a4cc-482e-af50-617684c9c068.webp';
-import imagen2 from '../../assets/127277b5-3687-442e-a894-4ddc254e38af.webp';
-import imagen3 from '../../assets/ab7dc8da-827d-43b9-8dcf-91457ba9e8ca.webp';
+import imagen1 from '../../assets/banner1.webp';
+import imagen2 from '../../assets/banner2.webp';
+import imagen3 from '../../assets/banner3.webp';
+import imagen4 from '../../assets/banner4.webp';
   
 const ImageBanner = () => {
       const images = [
           imagen1,
           imagen2,
-          imagen3
+          imagen3,
+          imagen4
       ];
 
     return (
