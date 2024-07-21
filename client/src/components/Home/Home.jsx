@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import ImageBanner from '../ImageBanner/ImageBanner';
 import MapView from '../MapView';
-import SavedRoutes from '../SavedRoutes';
 import LocationButton from '../LocationButton';
 import { getUserTokens, getTokens } from '../../services/api';
 
@@ -58,9 +57,7 @@ const Home = ({ isAuthenticated }) => {
   };
 
   const handleTokenCaptured = (tokenId) => {
-    setTokens(prevTokens => prevTokens.map(token => 
-      token._id === tokenId ? { ...token, captured: true } : token
-    ));
+    setTokens(tokens.map(token => token._id === tokenId ? { ...token, captured: true } : token));
   };
 
   return (
@@ -71,10 +68,8 @@ const Home = ({ isAuthenticated }) => {
       </div>
       <div>
         <LocationButton onStart={startTracking} onStop={stopTracking} isTracking={isTracking} />
-        <MapView tokens={tokens} userPath={userPath} onTokenCaptured={handleTokenCaptured} />
-        <SavedRoutes userPath={userPath} isTracking={isTracking} />
+        <MapView tokens={tokens} userPath={userPath} onTokenCaptured={handleTokenCaptured} isAuthenticated={isAuthenticated} />
       </div>
-      
     </>
   );
 };

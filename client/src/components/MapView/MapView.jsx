@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
-import { useNavigate } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { captureToken } from '../../services/api';
 
-// Import custom icons
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
@@ -30,29 +28,13 @@ const capturedIcon = new L.DivIcon({
   popupAnchor: [0, -24],
 });
 
-const userIcon = new L.Icon({
-  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41]
-});
-
 const MapView = ({ tokens, userPath, onTokenCaptured, isAuthenticated }) => {
-  const navigate = useNavigate();
-
   useEffect(() => {
     console.log('Tokens in MapView:', tokens);
     console.log('User Path:', userPath);
   }, [tokens, userPath]);
 
   const handleCaptureToken = async (tokenId) => {
-    if (!isAuthenticated) {
-      navigate('/register');
-      return;
-    }
-
     const lastPosition = userPath[userPath.length - 1];
     if (lastPosition) {
       try {
@@ -64,13 +46,9 @@ const MapView = ({ tokens, userPath, onTokenCaptured, isAuthenticated }) => {
     }
   };
 
-  const center = userPath.length > 0 
-    ? [userPath[userPath.length - 1].latitude, userPath[userPath.length - 1].longitude] 
-    : [40.416775, -3.703790];
-
   return (
     <div className="map-container">
-      <MapContainer center={center} zoom={13} style={{ height: '100%', width: '100%' }}>
+      <MapContainer center={[40.416775, -3.703790]} zoom={13} style={{ height: '100%', width: '100%' }}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -84,26 +62,24 @@ const MapView = ({ tokens, userPath, onTokenCaptured, isAuthenticated }) => {
             <Popup>
               {token.name}<br />{token.description}
               {!token.captured && (
-                <button onClick={() => handleCaptureToken(token._id)}>
-                  {isAuthenticated ? 'Capture Token' : 'Register to Capture'}
-                </button>
+                isAuthenticated ? (
+                  <button onClick={() => handleCaptureToken(token._id)}>
+                    Capture Token
+                  </button>
+                ) : (
+                  <p>Please <a href="/login">login</a> or <a href="/register">register</a> to capture tokens.</p>
+                )
               )}
             </Popup>
           </Marker>
         ))}
-        {userPath.length > 1 && (
-          <Polyline 
-            positions={userPath.map(point => [point.latitude, point.longitude])}
-            color="blue"
-          />
-        )}
         {userPath.length > 0 && (
-          <Marker
-            position={[userPath[userPath.length - 1].latitude, userPath[userPath.length - 1].longitude]}
-            icon={userIcon}
-          >
-            <Popup>Your current position</Popup>
-          </Marker>
+          <>
+            <Polyline positions={userPath.map(pos => [pos.latitude, pos.longitude])} color="blue" />
+            <Marker position={[userPath[userPath.length - 1].latitude, userPath[userPath.length - 1].longitude]}>
+              <Popup>Your current location</Popup>
+            </Marker>
+          </>
         )}
       </MapContainer>
     </div>
