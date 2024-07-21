@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { setAuthToken } from '../../services/api';
 
-const Nav = ({ isAuthenticated, setIsAuthenticated }) => {
+const Nav = ({ isAuthenticated, setIsAuthenticated, isAdmin }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -31,12 +31,9 @@ const Nav = ({ isAuthenticated, setIsAuthenticated }) => {
             <li>
               <Link to="/my-tokens">My Tokens</Link>
             </li>
-            <li>
-              <Link to="/saved-routes">Saved Routes</Link>
-            </li>
             {isAdmin && (
               <li>
-                <Link to="/admin">Admin Dashboard</Link>
+                <Link to="/admin">Admin</Link>
               </li>
             )}
             <li>

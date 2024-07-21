@@ -2,9 +2,9 @@ import React, { useEffect, useState, useRef } from 'react';
 import ImageBanner from '../ImageBanner/ImageBanner';
 import MapView from '../MapView';
 import LocationButton from '../LocationButton';
-import { getUserTokens } from '../../services/api';
+import { getUserTokens, getTokens } from '../../services/api';
 
-const Home = () => {
+const Home = ({ isAuthenticated }) => {
   const [tokens, setTokens] = useState([]);
   const [isTracking, setIsTracking] = useState(false);
   const [userPath, setUserPath] = useState([]);
@@ -13,7 +13,12 @@ const Home = () => {
   useEffect(() => {
     const fetchTokens = async () => {
       try {
-        const data = await getUserTokens();
+        let data;
+        if (isAuthenticated) {
+          data = await getUserTokens();
+        } else {
+          data = await getTokens();
+        }
         setTokens(data);
       } catch (error) {
         console.error('Error fetching tokens:', error);
@@ -21,7 +26,7 @@ const Home = () => {
     };
 
     fetchTokens();
-  }, []);
+  }, [isAuthenticated]);
 
   const startTracking = () => {
     if (navigator.geolocation) {

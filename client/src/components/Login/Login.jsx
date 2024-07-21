@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../../services/api';
+import { login, setAuthToken } from '../../services/api';
 
 const Login = ({ setIsAuthenticated }) => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -14,7 +14,7 @@ const Login = ({ setIsAuthenticated }) => {
     e.preventDefault();
     try {
       const data = await login(formData);
-      localStorage.setItem('token', data.token);
+      setAuthToken(data.token);
       setIsAuthenticated(true);
       navigate('/home');
     } catch (error) {

@@ -9,8 +9,8 @@ const AdminDashboard = () => {
     const fetchData = async () => {
       try {
         const usersData = await getUsers();
-        setUsers(usersData);
         const tokensData = await getTokens();
+        setUsers(usersData);
         setTokens(tokensData);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -22,23 +22,23 @@ const AdminDashboard = () => {
 
   return (
     <div className="admin-dashboard">
-      <h1>Admin Dashboard</h1>
-      <section>
-        <h2>Users</h2>
+      <h2>Admin Dashboard</h2>
+      <div>
+        <h3>Users</h3>
         <ul>
           {users.map(user => (
-            <li key={user._id}>{user.email}</li>
+            <li key={user._id}>{user.email} - {user.role}</li>
           ))}
         </ul>
-      </section>
-      <section>
-        <h2>Tokens</h2>
+      </div>
+      <div>
+        <h3>Tokens</h3>
         <ul>
           {tokens.map(token => (
-            <li key={token._id}>{token.name}</li>
+            <li key={token._id}>{token.name} - {token.description}</li>
           ))}
         </ul>
-      </section>
+      </div>
     </div>
   );
 };
