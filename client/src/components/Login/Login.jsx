@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { login, setAuthToken } from '../../services/api';
 
@@ -30,6 +31,7 @@ const Login = ({ setIsAuthenticated }) => {
         <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
         <button type="submit" className="btn">Login</button>
       </form>
+      <Link to="/" className="btn back-home">Back to Home</Link>
     </div>
   );
 };

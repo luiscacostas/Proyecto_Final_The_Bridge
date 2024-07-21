@@ -2,12 +2,19 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { setAuthToken } from '../../services/api';
 
-const Nav = ({ isAuthenticated, setIsAuthenticated, isAdmin }) => {
+const Nav = ({ isAuthenticated, setIsAuthenticated}) => {
+  const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const userRole = localStorage.getItem('userRole');
+    setIsAdmin(userRole === 'admin');
+  }, [isAuthenticated]);
+  
   const handleLogout = () => {
     setAuthToken(null);
     setIsAuthenticated(false);
+    localStorage.removeItem('userRole');
     navigate('/login');
   };
 

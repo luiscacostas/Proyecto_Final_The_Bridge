@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
+import { useNavigate } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { captureToken } from '../../services/api';
@@ -29,13 +30,20 @@ const capturedIcon = new L.DivIcon({
   popupAnchor: [0, -24],
 });
 
-const MapView = ({ tokens, userPath, onTokenCaptured }) => {
+const MapView = ({ tokens, userPath, onTokenCaptured, isAuthenticated }) => {
+  const navigate = useNavigate();
   useEffect(() => {
     console.log('Tokens in MapView:', tokens);
     console.log('User Path:', userPath);
   }, [tokens, userPath]);
 
   const handleCaptureToken = async (tokenId) => {
+
+    if (!isAuthenticated) {
+      navigate('/register');
+      return;
+    }
+
     const lastPosition = userPath[userPath.length - 1];
     if (lastPosition) {
       try {
@@ -50,10 +58,6 @@ const MapView = ({ tokens, userPath, onTokenCaptured }) => {
   return (
     <div className="map-container">
       <MapContainer center={[40.416775, -3.703790]} zoom={13} style={{ height: '100%', width: '100%' }}>
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        />
         {tokens.map(token => (
           <Marker
             key={token._id}
@@ -64,20 +68,12 @@ const MapView = ({ tokens, userPath, onTokenCaptured }) => {
               {token.name}<br />{token.description}
               {!token.captured && (
                 <button onClick={() => handleCaptureToken(token._id)}>
-                  Capture Token
+                  {isAuthenticated ? 'Capture Token' : 'Register to Capture'}
                 </button>
               )}
             </Popup>
           </Marker>
         ))}
-        {userPath.length > 0 && (
-          <>
-            <Polyline positions={userPath.map(pos => [pos.latitude, pos.longitude])} color="blue" />
-            <Marker position={[userPath[userPath.length - 1].latitude, userPath[userPath.length - 1].longitude]}>
-              <Popup>Your current location</Popup>
-            </Marker>
-          </>
-        )}
       </MapContainer>
     </div>
   );

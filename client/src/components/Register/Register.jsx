@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { register } from '../../services/api';
 
 const Register = () => {
@@ -28,6 +28,7 @@ const Register = () => {
         <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
         <button type="submit" className="btn">Register</button>
       </form>
+      <Link to="/" className="btn back-home">Back to Home</Link>
     </div>
   );
 };
