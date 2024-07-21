@@ -13,6 +13,7 @@ const authRoutes = require('./routes/auth.routes');
 const routeRoutes = require('./routes/routes.routes')
 
 const app = express();
+
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {

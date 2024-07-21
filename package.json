@@ -27,6 +27,9 @@
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
+    "better-docs": "^2.7.3",
+    "chai": "^5.1.1",
+    "mocha": "^10.6.1",
     "morgan": "^1.10.0",
     "nodemon": "^3.1.4"
   }
