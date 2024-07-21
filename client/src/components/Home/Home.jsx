@@ -57,7 +57,9 @@ const Home = ({ isAuthenticated }) => {
   };
 
   const handleTokenCaptured = (tokenId) => {
-    setTokens(tokens.map(token => token._id === tokenId ? { ...token, captured: true } : token));
+    setTokens(prevTokens => prevTokens.map(token => 
+      token._id === tokenId ? { ...token, captured: true } : token
+    ));
   };
 
   return (
@@ -70,6 +72,7 @@ const Home = ({ isAuthenticated }) => {
         <LocationButton onStart={startTracking} onStop={stopTracking} isTracking={isTracking} />
         <MapView tokens={tokens} userPath={userPath} onTokenCaptured={handleTokenCaptured} />
       </div>
+      <SavedRoutes userPath={userPath} isTracking={isTracking} />
     </>
   );
 };
