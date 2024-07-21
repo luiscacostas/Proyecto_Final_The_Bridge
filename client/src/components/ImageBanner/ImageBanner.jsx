@@ -19,10 +19,8 @@ const ImageBanner = () => {
             <Slide>
                 {images.map((image, index) => (
                     <div className="each-slide" key={index}>
-                        <div style={{
+                        <div className='banner' style={{
                             'backgroundImage': `url(${image})`,
-                            'height': '400px',
-                            'backgroundSize': 'cover',
                         }}>
                         </div>
                     </div>
