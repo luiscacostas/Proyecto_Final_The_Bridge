@@ -34,6 +34,11 @@ const Nav = ({ isAuthenticated, setIsAuthenticated }) => {
             <li>
               <Link to="/saved-routes">Saved Routes</Link>
             </li>
+            {isAdmin && (
+              <li>
+                <Link to="/admin">Admin Dashboard</Link>
+              </li>
+            )}
             <li>
               <button onClick={handleLogout}>Logout</button>
             </li>

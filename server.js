@@ -11,6 +11,7 @@ const userRoutes = require('./routes/users.routes');
 const tokenRoutes = require('./routes/tokens.routes');
 const authRoutes = require('./routes/auth.routes');
 const routeRoutes = require('./routes/routes.routes')
+const adminRoutes = require('./routes/admin.routes');
 
 const app = express();
 
@@ -42,8 +43,9 @@ app.use('/docs', express.static(path.join(__dirname, 'docs')));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
-app.use('/api/tokens', tokenRoutes)
-app.use('/api/routes', routeRoutes)
+app.use('/api/tokens', tokenRoutes);
+app.use('/api/routes', routeRoutes);
+app.use('/api', adminRoutes);
 
 app.use(morgan(':method :host :status - :response-time ms :body'));
 
