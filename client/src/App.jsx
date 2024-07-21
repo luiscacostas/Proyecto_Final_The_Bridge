@@ -7,6 +7,7 @@ import Nav from './components/Nav';
 import AdminDashboard from './components/AdminDashboard';
 //import UserTokens from './components/UserTokens';
 import SavedRoutes from './components/SavedRoutes/SavedRoutes'; 
+import Footer from './components/Footer';
 import './styles/style.scss';
 
 const App = () => {
@@ -47,6 +48,7 @@ const App = () => {
           />
         } />
       </Routes>
+      <Footer />
     </Router>
   )
 };
