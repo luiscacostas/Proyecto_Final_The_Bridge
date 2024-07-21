@@ -20,7 +20,7 @@ const Route = require('../models/routes.models');
  * @throws {Error} Si ocurre un error al guardar la ruta.
  */
 const saveRoute = async (userId, path, totalDistance, duration) => {
-  const route = new Route({ userId, path, totalDistance, duration });
+  const route = new Route({ user: userId, path, totalDistance, duration });
   await route.save();
   return route;
 };
@@ -35,7 +35,7 @@ const saveRoute = async (userId, path, totalDistance, duration) => {
  * @throws {Error} Si ocurre un error al obtener las rutas.
  */
 const getRoutes = async (userId) => {
-  const routes = await Route.find({ userId }).sort({ createdAt: -1 });
+  const routes = await Route.find({ user: userId }).sort({ createdAt: -1 });
   return routes;
 };
 
@@ -43,3 +43,4 @@ module.exports = {
   saveRoute,
   getRoutes
 };
+

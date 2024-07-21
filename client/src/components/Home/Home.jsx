@@ -2,12 +2,14 @@ import React, { useEffect, useState, useRef } from 'react';
 import ImageBanner from '../ImageBanner/ImageBanner';
 import MapView from '../MapView';
 import LocationButton from '../LocationButton';
-import { getUserTokens, getTokens } from '../../services/api';
+import { getUserTokens, getTokens, saveRoute } from '../../services/api';
+import { getDistance } from 'geolib';
 
 const Home = ({ isAuthenticated }) => {
   const [tokens, setTokens] = useState([]);
   const [isTracking, setIsTracking] = useState(false);
   const [userPath, setUserPath] = useState([]);
+  const [startTime, setStartTime] = useState(null);
   const watchId = useRef(null);
 
   useEffect(() => {
@@ -30,6 +32,7 @@ const Home = ({ isAuthenticated }) => {
 
   const startTracking = () => {
     if (navigator.geolocation) {
+      setStartTime(new Date());
       watchId.current = navigator.geolocation.watchPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
@@ -48,11 +51,36 @@ const Home = ({ isAuthenticated }) => {
     }
   };
 
-  const stopTracking = () => {
+  const stopTracking = async () => {
     if (watchId.current) {
       navigator.geolocation.clearWatch(watchId.current);
       watchId.current = null;
       setIsTracking(false);
+      const endTime = new Date();
+      const duration = ((endTime - startTime) / 1000 / 60).toFixed(2); 
+
+      let totalDistance = 0;
+      for (let i = 0; i < userPath.length - 1; i++) {
+        totalDistance += getDistance(
+          { latitude: userPath[i].latitude, longitude: userPath[i].longitude },
+          { latitude: userPath[i + 1].latitude, longitude: userPath[i + 1].longitude }
+        );
+      }
+
+      if (isAuthenticated && userPath.length > 0) {
+        try {
+          await saveRoute({
+            path: userPath,
+            totalDistance,
+            duration
+          });
+          alert('Route saved successfully');
+        } catch (error) {
+          console.error('Error saving route:', error);
+        }
+      }
+
+      setUserPath([]);
     }
   };
 
@@ -75,3 +103,4 @@ const Home = ({ isAuthenticated }) => {
 };
 
 export default Home;
+
