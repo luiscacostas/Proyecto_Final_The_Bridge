@@ -1,43 +1,33 @@
+@import '../utils/variables.scss';
 .location-button-container {
-    text-align: center;
-    margin: 2rem 0;
-  
-    .btn {
-      padding: 1rem 2rem;
-      font-size: 1.2rem;
-      border-radius: 50px;
-      transition: background 0.5s, transform 0.2s, box-shadow 0.2s;
-      cursor: pointer;
-      border: none;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+
+  .btn {
+    font-size: 1.2rem;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    &.start {
+      background-color: $lightBlue;
       color: white;
-      outline: none;
-  
-      &.start {
-        background: linear-gradient(45deg, #28a745, #218838);
-        
-        &:hover {
-          background: linear-gradient(45deg, #218838, #28a745);
-          transform: scale(1.1);
-          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-  
-        &:active {
-          transform: scale(0.95);
-        }
+
+      &:hover {
+        background-color: $purple;
       }
-  
-      &.stop {
-        background: linear-gradient(45deg, #dc3545, #c82333);
-        
-        &:hover {
-          background: linear-gradient(45deg, #c82333, #dc3545);
-          transform: scale(1.1);
-          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-  
-        &:active {
-          transform: scale(0.95);
-        }
+    }
+
+    &.stop {
+      background-color: $pink;
+      color: white;
+
+      &:hover {
+        background-color: $darkBlue;
       }
     }
   }
+}

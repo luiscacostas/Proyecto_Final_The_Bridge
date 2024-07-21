@@ -28,16 +28,16 @@ const UserTokens = () => {
 
   return (
     <div className="user-tokens-container">
-      <h2>My Tokens</h2>
-      <ul>
-        {tokens.map((token) => (
-          <li key={token._id} className={token.captured ? 'captured' : ''}>
-            <span>{token.name}</span>
-            <span>{token.description}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
+  <h2>My Tokens</h2>
+  <ul>
+    {tokens.map((token) => (
+      <li key={token._id} className={token.captured ? 'captured' : ''}>
+        <span>{token.name}</span>
+        <span>{token.description}</span>
+      </li>
+    ))}
+  </ul>
+</div>
   );
 };
 

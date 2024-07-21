@@ -1,47 +1,55 @@
 @import '../utils/variables.scss';
 .navbar {
-    background: linear-gradient(45deg, $darkBlue, $lightBlue);
-    padding: 1rem;
-    text-align: center;
-    
-  
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      align-items: center;
+  background-color: $darkBlue;
+  padding: 1rem;
+
+  ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+
+    @media (min-width: 768px) {
+      flex-direction: row;
       justify-content: space-around;
-  
-      li {
-        margin: 0.5rem 0;
-        justify-content: space-between;
-        font-size: 2rem;
-  
-        a, button {
-          text-decoration: none;
-          color: white;
-          font-weight: bold;
-          transition: color 0.3s, transform 0.2s;
-          background: none;
-          border: none;
-          cursor: pointer;
-          
-          &:hover {
-            color: $pink;
-            transform: scale(1.1);
-          }
-        }
+    }
+  }
+
+  li {
+    margin: 0.5rem 0;
+
+    @media (min-width: 768px) {
+      margin: 0 1rem;
+    }
+
+    a,
+    button {
+      color: $lightBlue;
+      text-decoration: none;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      transition: color 0.3s ease, background-color 0.3s ease;
+      border-radius: 5px;
+
+      &:hover {
+        color: $purple;
+        background-color: rgba($pink, 0.2);
       }
     }
-  
-    @media (min-width: 768px) {
-      ul {
-        flex-direction: row;
-      }
-  
-      li {
-        margin: 0 1rem;
+
+    button {
+      background-color: transparent;
+      border: 1px solid $lightBlue;
+
+      &:hover {
+        background-color: $pink;
+        color: white;
       }
     }
   }
+}

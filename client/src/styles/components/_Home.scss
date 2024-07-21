@@ -1,31 +1,63 @@
-@import '../utils//variables.scss';
+@import '../utils/variables.scss';
 .App {
-    text-align: center;
-  
-    h1 {
-      font-size: 4rem;
-      color: #bd2d2d;
-      font-family:fantasy;
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(to bottom right, $darkBlue, $purple);
+  color: $grey;
+
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    color: $lightBlue;
+  }
+}
+
+.image-banner {
+  width: 100%;
+  margin-bottom: 2rem;
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+}
+
+.location-button {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+
+  button {
+    background-color: $pink;
+    color: $grey;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    &:hover {
+      background-color: $lightBlue;
+      color: white;
     }
-  
-    .banner {
-      width: 100%;
-      height: 50vh;
-      background: url('path_to_your_image.jpg') no-repeat center center/cover;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  
-    .content {
-      padding: 2rem;
-  
-      @media (min-width: 768px) {
-        padding: 3rem;
-      }
-  
-      @media (min-width: 1024px) {
-        padding: 4rem;
-      }
+
+    &:disabled {
+      background-color: $grey;
+      color: $darkBlue;
+      cursor: not-allowed;
     }
   }
+}
+
+.map-view {
+  width: 100%;
+  height: 500px; 
+  border-radius: 10px;
+  overflow: hidden;
+
+  .map {
+    width: 100%;
+    height: 100%;
+  }
+}

@@ -1,50 +1,70 @@
-.login-container {
+@import '../utils/variables.scss';
+
+.login-container, .register-container {
+  background-color: $darkBlue;
+  color: $grey;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 400px;
+  margin: 2rem auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    margin-bottom: 1.5rem;
+    color: $lightBlue;
+    font-size: 2rem;
+  }
+
+  form {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
-  
-    form {
-      background: white;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      text-align: center;
-  
-      h2 {
-        margin-bottom: 1.5rem;
-        color: #333;
+    flex-direction: column;
+
+    input {
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: 1px solid $grey;
+      border-radius: 5px;
+      outline: none;
+      transition: border-color 0.3s ease;
+
+      &:focus {
+        border-color: $lightBlue;
       }
-  
-      input {
-        width: 100%;
-        padding: 0.75rem;
-        margin-bottom: 1rem;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        font-size: 1rem;
-      }
-  
-      .btn , .back-home {
-        width: 100%;
-        padding: 0.75rem;
-        background: linear-gradient(45deg, #6a11cb, #2575fc);
-        border: none;
-        border-radius: 5px;
-        color: white;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: background 0.5s, transform 0.2s;
-  
-        &:hover {
-          background: linear-gradient(45deg, #2575fc, #6a11cb);
-          transform: scale(1.05);
-        }
-  
-        &:active {
-          transform: scale(0.95);
-        }
+    }
+
+    .btn {
+      padding: 0.75rem;
+      font-size: 1.2rem;
+      color: white;
+      background-color: $pink;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: $lightBlue;
       }
     }
   }
+
+  .back-home {
+    display: block;
+    text-align: center;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    font-size: 1rem;
+    color: $grey;
+    background-color: $darkBlue;
+    border: 1px solid $lightBlue;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    &:hover {
+      background-color: $lightBlue;
+      color: white;
+    }
+  }
+}

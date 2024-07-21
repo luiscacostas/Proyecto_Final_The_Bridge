@@ -48,41 +48,41 @@ const MapView = ({ tokens, userPath, onTokenCaptured, isAuthenticated }) => {
 
   return (
     <div className="map-container">
-      <MapContainer center={[40.416775, -3.703790]} zoom={13} style={{ height: '100%', width: '100%' }}>
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        />
-        {tokens.map(token => (
-          <Marker
-            key={token._id}
-            position={[token.latitude, token.longitude]}
-            icon={token.captured ? capturedIcon : new L.Icon.Default()}
-          >
-            <Popup>
-              {token.name}<br />{token.description}
-              {!token.captured && (
-                isAuthenticated ? (
-                  <button onClick={() => handleCaptureToken(token._id)}>
-                    Capture Token
-                  </button>
-                ) : (
-                  <p>Please <a href="/login">login</a> or <a href="/register">register</a> to capture tokens.</p>
-                )
-              )}
-            </Popup>
-          </Marker>
-        ))}
-        {userPath.length > 0 && (
-          <>
-            <Polyline positions={userPath.map(pos => [pos.latitude, pos.longitude])} color="blue" />
-            <Marker position={[userPath[userPath.length - 1].latitude, userPath[userPath.length - 1].longitude]}>
-              <Popup>Your current location</Popup>
-            </Marker>
-          </>
-        )}
-      </MapContainer>
-    </div>
+  <MapContainer center={[40.416775, -3.703790]} zoom={13} style={{ height: '100%', width: '100%' }}>
+    <TileLayer
+      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    />
+    {tokens.map(token => (
+      <Marker
+        key={token._id}
+        position={[token.latitude, token.longitude]}
+        icon={token.captured ? capturedIcon : new L.Icon.Default()}
+      >
+        <Popup>
+          {token.name}<br />{token.description}
+          {!token.captured && (
+            isAuthenticated ? (
+              <button className="leaflet-popup-button" onClick={() => handleCaptureToken(token._id)}>
+                Capture Token
+              </button>
+            ) : (
+              <p>Please <a href="/login">login</a> or <a href="/register">register</a> to capture tokens.</p>
+            )
+          )}
+        </Popup>
+      </Marker>
+    ))}
+    {userPath.length > 0 && (
+      <>
+        <Polyline positions={userPath.map(pos => [pos.latitude, pos.longitude])} color="blue" />
+        <Marker position={[userPath[userPath.length - 1].latitude, userPath[userPath.length - 1].longitude]}>
+          <Popup>Your current location</Popup>
+        </Marker>
+      </>
+    )}
+  </MapContainer>
+</div>
   );
 };
 
