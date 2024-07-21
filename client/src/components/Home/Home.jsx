@@ -58,7 +58,7 @@ const Home = () => {
   return (
     <>
       <div className="App">
-        <h1>Mi aplicación React</h1>
+        <h1>TOKEN GO!</h1>
         <ImageBanner />
       </div>
       <div>
